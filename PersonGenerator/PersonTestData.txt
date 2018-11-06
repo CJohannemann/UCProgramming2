@@ -1,0 +1,5 @@
+000001, Bilbo, Baggins, 1060.0
+000002, Frodo, Baggins, 1120.0
+000003, Samwise, Gamgee, 1125.0
+000004, Peregrin, Took, 1126.0
+000005, Meridoc, Brandybuck, 1126.0
