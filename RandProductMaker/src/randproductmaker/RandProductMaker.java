@@ -2,7 +2,7 @@ package randproductmaker;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.RandomAccessFile;
 import java.util.Scanner;
 
 public class RandProductMaker {
@@ -15,9 +15,11 @@ public class RandProductMaker {
         Use your program to create the Product data file. Be careful to use the 
         exact same inputs that you did for Lab 01 so we can compare the file formats. 
          */
-        String name = null;
-        String desc = null;
-        String id = null;
+        RandomAccessFile rf = new RandomAccessFile("homework.dat", "rw");
+        int recordLength = 116 + 8;
+        String name = "";
+        String desc = "";
+        String id = "";
         double amount = 0;
         boolean add = true;
         do {
@@ -25,19 +27,13 @@ public class RandProductMaker {
             description(desc);
             setID(id);
             price(amount);
-            productAdder(name, desc, id, amount);
+            
+            Product p = new Product(name, desc, id, amount);
+            p.toRandAccessFile(rf);
+            
             Scanner prompt = new Scanner(System.in);
             add = SafeInput.getYNConfirm(prompt, "Do you want to enter a new product?");
         } while (add);
-    }
-
-    private static ArrayList productAdder(String name, String desc, String id, double amount) throws FileNotFoundException, IOException {
-        ArrayList<Product> products = new ArrayList();
-        products.add(new Product(name, desc, id, amount));
-        Product p = new Product();
-        p.toRandAccessFile(name, desc, id, amount);
-        
-        return products;
     }
 
     private static String fullname(String name) {
@@ -99,5 +95,10 @@ public class RandProductMaker {
             amount = sc.nextDouble();
         }
         return newID;
+    }
+    
+    private static int numberOfRecords(RandomAccessFile rf, int recordLength) throws IOException{
+        long size =  rf.length();
+        return (int)size / recordLength;
     }
 }

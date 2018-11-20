@@ -8,12 +8,13 @@ package randproductmaker;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.io.Serializable;
 
 /**
  *
  * @author cjohannemann
  */
-public class Product {
+public class Product implements Serializable {
     private String name;
     private String description;
     private String id;
@@ -50,11 +51,14 @@ public class Product {
      String csv = id + ", " + name + ", " + description + ", " + cost ;
         return csv;
     }
-    public void toRandAccessFile(String name, String description, String id, double cost) throws FileNotFoundException, IOException{
-        String data = name + " " + description + " " + id + " " + cost;
-        RandomAccessFile rf = new RandomAccessFile("homework.dat", "rw");
-        rf.writeChars(data);
-        rf.close();
+    public void toRandAccessFile(RandomAccessFile file) throws FileNotFoundException, IOException{
+        //String data = name + description + id  + cost;
+        
+        file.writeChars(this.id);
+        file.writeChars(this.name);
+        file.writeChars(this.description);
+        file.writeDouble(this.cost);
+        file.close();
     }
     
 }
