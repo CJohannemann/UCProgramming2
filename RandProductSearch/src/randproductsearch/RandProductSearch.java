@@ -26,9 +26,14 @@ public class RandProductSearch {
         if(sc.hasNext()){
             result = sc.nextLine();
         }
-        String path = "C:\\Development\\GAWorkspace\\RandProductMaker\\homework.dat";
+        String path = "homework.dat";
         File file = new File(path);
         RandomAccessFile rf = new RandomAccessFile(file, "r");
+        
+        /*
+        5.Create a second program RandProductSearch.java. It should prompt the user for a partial product name and then 
+        return a display of every product that matches the name. It should loop until the user indicates that they are done looking up products. 
+        */
         
     }
     
